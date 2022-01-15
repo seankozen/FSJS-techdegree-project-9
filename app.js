@@ -9,12 +9,6 @@ const sequelize = require('./models').sequelize;
 let userRouter = require('./routes/users');
 let courseRouter = require('./routes/courses');
 
-
-
-
-
-
-
 // variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
 
@@ -24,17 +18,11 @@ const app = express();
 // setup morgan which gives us http request logging
 app.use(morgan('dev'));
 
-//app.use('/api/user', userRouter);
-//app.use('/api/course', courseRouter);
+// Setup request body JSON parsing.
+app.use(express.json());
 
-
-
-// setup a friendly greeting for the root route
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Welcome to the REST API project!',
-  });
-});
+app.use('/api/users', userRouter);
+app.use('/api/courses', courseRouter);
 
 //Database connection confirmation
 (async() => {
