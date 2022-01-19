@@ -8,22 +8,34 @@ module.exports = (sequelize) => {
         title: {
             type: DataTypes.STRING,
             allowNull: false,
+            validate: {
+                notNull: {
+                  msg: 'A title is required.'
+                },
+                notEmpty: {
+                  msg: 'Please provide a title.'   
+                },  
+            },
         },
         description: {
             type: DataTypes.TEXT,
             allowNull: false,
+            validate: {
+                notNull: {
+                  msg: 'A course description is required.'
+                },
+                notEmpty: {
+                  msg: 'Please provide a course description.'   
+                },  
+            },
 
         },
         estimatedTime: {
             type: DataTypes.STRING,
-            allowNull: false,
-
         },
         materialsNeeded: {
             type: DataTypes.STRING,
-            allowNull: false,
         },
-        
     }, { sequelize });
 
     // One to one association with user
@@ -35,9 +47,6 @@ module.exports = (sequelize) => {
             }
         })    
     };
-
-
-
 
     return Course;
 
