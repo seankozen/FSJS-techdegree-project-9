@@ -6,9 +6,7 @@ const { authenticateUser } = require('../middleware/auth-user');
 
 const Sequelize = require('sequelize');
 
-
-
-
+// Async handler for routes
 function asyncHandler(cb){
 	return async(req, res, next) => {
 		try {
@@ -19,14 +17,6 @@ function asyncHandler(cb){
 	}
 }
 
-// setup a friendly greeting for the root route
-/* router.get('/', (req, res) => {
-	res.json({
-	  message: 'Welcome to the REST API project! Users Route.',
-	});
-  });
- */
- 
 // Get authenticated user  
 router.get("/", authenticateUser, asyncHandler( async (req, res) => {
 	const user = req.currentUser;
@@ -53,7 +43,6 @@ router.post("/", asyncHandler( async (req, res) => {
 			throw error;
 		}
 	}
-
 }));
 
 
