@@ -1,3 +1,5 @@
+'use strict';
+
 let express = require('express');
 let router = express.Router();
 const { User, Course } = require('../models');	//Require User and Course Models
