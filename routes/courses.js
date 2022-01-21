@@ -9,7 +9,7 @@ const { asyncHandler } = require('../middleware/async-handler'); //Require async
 // Get all courses and the users associated with them 
 router.get("/", asyncHandler( async (req, res) => {
 	const courses = await Course.findAll({
-        attributes: {exclude: ['createdAt', 'updateAt']},
+        attributes: {exclude: ['createdAt', 'updatedAt']},
 		include: [
 			{
 				model: User,
@@ -23,7 +23,7 @@ router.get("/", asyncHandler( async (req, res) => {
 // Gets specific course with the associated user
 router.get('/:id', asyncHandler( async(req, res) => {
 	const course = await Course.findByPk(req.params.id, {
-		attributes: {exclude: ['createdAt', 'updateAt']},
+		attributes: {exclude: ['createdAt', 'updatedAt']},
 		include: [
 			{
 				model: User,
