@@ -1,21 +1,8 @@
 let express = require('express');
 let router = express.Router();
-const { User } = require('../models');
-const { authenticateUser } = require('../middleware/auth-user');
-
-
-const Sequelize = require('sequelize');
-
-// Async handler for routes
-function asyncHandler(cb){
-	return async(req, res, next) => {
-		try {
-			await cb(req, res, next)
-		} catch(error){
-			res.status(500).send(error);       
-		}
-	}
-}
+const { User } = require('../models'); //Require User Model
+const { authenticateUser } = require('../middleware/auth-user'); //Require authentication middleware
+const { asyncHandler } = require('../middleware/async-handler'); //Require async middleware
 
 // Get authenticated user  
 router.get("/", authenticateUser, asyncHandler( async (req, res) => {

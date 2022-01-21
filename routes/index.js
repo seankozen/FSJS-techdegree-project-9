@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const Book = require('../models').User;
-const Book = require('../models').Course;
-
+const User = require('../models').User;
+const Course = require('../models').Course;
 
 
 module.exports = router;

@@ -1,22 +1,8 @@
 let express = require('express');
 let router = express.Router();
-const { User, Course } = require('../models');
-//const Sequelize = require('sequelize');
-//const user = require('../models/user');
-const { authenticateUser } = require('../middleware/auth-user');
-const { json } = require('express/lib/response');
-
-// Async handler for routes
-function asyncHandler(cb){
-	return async(req, res, next) => {
-		try {
-			await cb(req, res, next)
-		} catch(error){
-			res.status(500).send(error);       
-		}
-	}
-}
-
+const { User, Course } = require('../models');	//Require User and Course Models
+const { authenticateUser } = require('../middleware/auth-user'); //Require authentication middleware
+const { asyncHandler } = require('../middleware/async-handler'); //Require async middleware
 
 // Get all courses and the users associated with them 
 router.get("/", asyncHandler( async (req, res) => {
@@ -51,7 +37,6 @@ router.get('/:id', asyncHandler( async(req, res) => {
 	}
 }));
 
-
 // Create new course with user authentication
 router.post('/', authenticateUser, asyncHandler( async(req, res) => {
 	try {
@@ -60,7 +45,7 @@ router.post('/', authenticateUser, asyncHandler( async(req, res) => {
 	} catch (error) {
 		console.log('Error:', error.name);
 		if(error.name === 'SequelizeValidationError'){
-			const errors = error.errors.map(err = err.message);
+			const errors = error.errors.map(err => err.message);
 			res.status(400).json({errors});
 		} else {
 			throw error;
@@ -105,6 +90,5 @@ router.delete('/:id', authenticateUser, asyncHandler( async(req, res) => {
 		res.status(403).json({message: error.message});
 	}
 }));
-
 
 module.exports = router;

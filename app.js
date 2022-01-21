@@ -21,8 +21,8 @@ app.use(morgan('dev'));
 // Setup request body JSON parsing.
 app.use(express.json());
 
-app.use('/api/users', userRouter);
-app.use('/api/courses', courseRouter);
+app.use('/api/users', userRouter);   // api/users route
+app.use('/api/courses', courseRouter); // api/courses route
 
 //Database connection confirmation
 (async() => {
@@ -32,7 +32,6 @@ app.use('/api/courses', courseRouter);
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
-
 })();
 
 // send 404 if no other route matched
